@@ -1,6 +1,10 @@
-from unittest import TestCase
+import unittest
 
 
-class TestKillDjango(TestCase):
+class TestKillDjango(unittest.TestCase):
     def test_something(self):
         pass
+
+
+if __name__ == '__main__':
+    unittest.main()
