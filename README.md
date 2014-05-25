@@ -6,3 +6,7 @@ A simple script to find and kill Django development servers on the local machine
 To use, just run
 
     ./kill_django.py
+
+To run tests, run
+
+    nosetests
