@@ -8,6 +8,7 @@ from subprocess import Popen, PIPE
 
 
 def pid_status(pid):
+    """Check if process ID is running and return boolean for status."""
     GREP_PID = 'ps aux | grep {process} | grep -v grep'
     cmd = Popen(GREP_PID.format(process=pid), stdout=PIPE, shell=True)
     out, err = cmd.communicate()
@@ -21,6 +22,7 @@ def pid_status(pid):
 
 
 def kill_pid(pid, level=15):
+    """Kill specified process.  Default to level 15, e.g. kill -15 PID."""
     KILL_CMD = 'kill -{level} {process}'
     print 'Killing process {}...'.format(pid)
     cmd = Popen(KILL_CMD.format(level=level, process=pid), stdout=PIPE,
@@ -29,6 +31,7 @@ def kill_pid(pid, level=15):
 
 
 def find_pids(processes):
+    """Return generator object of process IDs."""
     for process in processes:
         process = process.split(' ')
         row = [p for p in process if p != '']
@@ -39,6 +42,7 @@ def find_pids(processes):
 
 
 def get_processes():
+    """Run process command and return output."""
     GREP_FIND = 'ps aux | grep python | grep runserver | grep -v grep'
     cmd = Popen(GREP_FIND, stdout=PIPE, shell=True)
     out, err = cmd.communicate()
@@ -55,6 +59,7 @@ def get_processes():
 
 
 def main():
+    """Kick off tasks to find and kill Django development servers."""
     processes = get_processes()
 
     if not processes:
