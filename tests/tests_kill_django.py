@@ -1,13 +1,18 @@
+import sys
 import unittest
 
-# from kill_django import pid_status
+sys.path.append("../")
+from kill_django.kill_django import find_pids
 
 
 class TestKillDjango(unittest.TestCase):
-    def test_something(self):
-        # pid_status('1234')
-        self.fail('xxx')
-
-
-if __name__ == '__main__':
-    unittest.main()
+    def test_find_pids(self):
+        processes = [
+            'user     1111 foo bar',
+            'user      1112 foo bar baz',
+        ]
+        actual = []
+        generator = find_pids(processes)
+        for pid in generator:
+            actual.append(pid)
+        self.assertEqual(actual, ['1111', '1112'])
